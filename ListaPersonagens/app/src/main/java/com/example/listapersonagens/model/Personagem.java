@@ -14,7 +14,12 @@ public class Personagem {
         this.nascimento = nascimento;
     }
 
-    public String getNome() {
+    @Override
+    public String toString() {
+        return nome;
+    }
+
+    /* public String getNome() {
         return nome;
     }
 
@@ -24,5 +29,5 @@ public class Personagem {
 
     public String getNascimento() {
         return nascimento;
-    }
+    }*/
 }
