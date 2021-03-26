@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.listapersonagens.R;
@@ -21,11 +22,16 @@ import java.util.List;
 
 public class ListaPersonagemActivity extends AppCompatActivity {
 
+    private final PersonagemDAO dao = new PersonagemDAO();
+
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(@NonNull Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_personagem);
         setTitle("Lista de Personagens");
+
+        dao.salva(new Personagem("Ken","1,80","02041999"));
+        dao.salva(new Personagem("Ryu","1,80","02041999"));
 
 
 
@@ -56,7 +62,8 @@ public class ListaPersonagemActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        PersonagemDAO dao = new PersonagemDAO();
+
+
         ListView listadePersonagens = findViewById(R.id.activity_main_lista_personagem);
         List<Personagem> personagems = dao.todos();
         listadePersonagens.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, personagems));
@@ -64,8 +71,8 @@ public class ListaPersonagemActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int posicao, long id) {
                 Personagem personagemEscolhido = personagems.get(posicao);
-                //Log.i("posição", "" + personagemEscolhido);
                 Intent VaiParaFormulario = new Intent(ListaPersonagemActivity.this, FormularioPersonagemActivity.class);
+                VaiParaFormulario.putExtra("personagem", personagemEscolhido);
                 startActivity(VaiParaFormulario);
             }
         });
