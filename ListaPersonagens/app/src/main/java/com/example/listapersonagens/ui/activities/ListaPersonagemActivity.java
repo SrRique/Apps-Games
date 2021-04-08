@@ -33,9 +33,11 @@ public class ListaPersonagemActivity extends AppCompatActivity {
         dao.salva(new Personagem("Ken","1,80","02041999"));
         dao.salva(new Personagem("Ryu","1,80","02041999"));
 
+        configuraFacNovoPersonagem();
 
+    }
 
-
+    private void configuraFacNovoPersonagem() {
         FloatingActionButton botaoNovoPersonagem = findViewById(R.id.floatingActionButton2);
         botaoNovoPersonagem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,26 +46,11 @@ public class ListaPersonagemActivity extends AppCompatActivity {
 
             }
         });
-
-        //List<String> personagem = new ArrayList<>(Arrays.asList("Alex", "Ken", "Ryu", "Chun-Li"));
-
-
-
-        // TextView primeiropersonagem = findViewById(R.id.textView);
-        // TextView segundopersonagem = findViewById(R.id.textView2);
-        // TextView terceiropersonagem = findViewById(R.id.textView3);
-
-        // primeiropersonagem.setText(personagem.get(0));
-        //  segundopersonagem.setText(personagem.get(1));
-        // terceiropersonagem.setText(personagem.get(2));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-
-
         ListView listadePersonagens = findViewById(R.id.activity_main_lista_personagem);
         List<Personagem> personagems = dao.todos();
         listadePersonagens.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, personagems));
