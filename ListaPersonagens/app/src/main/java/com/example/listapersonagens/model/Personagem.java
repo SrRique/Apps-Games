@@ -7,10 +7,10 @@ import java.io.Serializable;
 public class Personagem implements Serializable {
 
 
-    private  String nome;
-    private  String altura;
-    private  String nascimento;
-    private  int id = 0;
+    private String nome;
+    private String altura;
+    private String nascimento;
+    private int id = 0;
 
     public Personagem(String nome, String altura, String nascimento) {
 
@@ -19,8 +19,7 @@ public class Personagem implements Serializable {
         this.nascimento = nascimento;
     }
 
-    public Personagem()
-    {
+    public Personagem() {
 
 
     }
@@ -56,14 +55,16 @@ public class Personagem implements Serializable {
 
     }
 
-    public  void setId(int id)
-    {
-        this.id=id;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getId(){
-        return  id;
+    public int getId() {
+        return id;
     }
 
 
+    public boolean IdValido() {
+        return id > 0;
+    }
 }
