@@ -31,15 +31,18 @@ public class ListaPersonagemActivity extends AppCompatActivity {
     protected void onCreate(@NonNull Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_personagem);
+        //Definindo o titulo
         setTitle(TITULO_APPBAR);
         configuraFabNovoPersonagem();
 
     }
 
     private void configuraFabNovoPersonagem() {
+        //Puxando o FloatingActionButton
         FloatingActionButton botaoNovoPersonagem = findViewById(R.id.floatingActionButton2);
         botaoNovoPersonagem.setOnClickListener(new View.OnClickListener() {
             @Override
+            //Ao clicar no botão executa o abreFormularioSalva()
             public void onClick(View view) {
                 abreFormularioSalva();
 
@@ -52,6 +55,7 @@ public class ListaPersonagemActivity extends AppCompatActivity {
         startActivity(new Intent(ListaPersonagemActivity.this, FormularioPersonagemActivity.class));
     }
 
+    //protege os dados para não sumir ao dar back
     @Override
     protected void onResume() {
         super.onResume();
@@ -59,7 +63,9 @@ public class ListaPersonagemActivity extends AppCompatActivity {
 
     }
 
+    //faz a configuração da lista
     private void configuraLista() {
+
         ListView listadePersonagens = findViewById(R.id.activity_main_lista_personagem);
         final List<Personagem> personagems = dao.todos();
         listaDePersonagens(listadePersonagens, personagems);
@@ -68,6 +74,7 @@ public class ListaPersonagemActivity extends AppCompatActivity {
 
     private void configuraItemPorClique(ListView listadePersonagens, List<Personagem> personagems) {
         listadePersonagens.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            //Metodo que faz a selecao dos personagens
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int posicao, long id) {
                 Personagem personagemEscolhido = (Personagem) adapterView.getItemAtPosition(posicao);

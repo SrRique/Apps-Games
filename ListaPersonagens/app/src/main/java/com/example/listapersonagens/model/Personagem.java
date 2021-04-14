@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public class Personagem implements Serializable {
 
-
+    //criando as var
     private String nome;
     private String altura;
     private String nascimento;
@@ -14,11 +14,13 @@ public class Personagem implements Serializable {
 
     public Personagem(String nome, String altura, String nascimento) {
 
+        //colocando conteudo nas var
         this.nome = nome;
         this.altura = altura;
         this.nascimento = nascimento;
     }
 
+    //get`s e set`s
     public Personagem() {
 
 
