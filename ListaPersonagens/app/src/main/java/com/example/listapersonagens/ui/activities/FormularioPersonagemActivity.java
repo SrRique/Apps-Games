@@ -46,6 +46,7 @@ public class FormularioPersonagemActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
+        //pegando item pelo id
         if (itemId == R.id.activity_formulario_personagem_menu_salvar){
             FinalizaFormulario();
         }
@@ -56,7 +57,9 @@ public class FormularioPersonagemActivity extends AppCompatActivity {
     //faz o processo de inicialização
     protected void onCreate(@NonNull Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //pegando item pelo id
         setContentView(R.layout.activity_formulario_personagem);
+        //ordem da execução dos eventos no Oncreate
         inicializaCampos();
         configuraoBotaoSalvar();
         carregaPersonagem();
@@ -107,16 +110,17 @@ public class FormularioPersonagemActivity extends AppCompatActivity {
 
     //Pegando os ids do editText e inicializando, configura o layout
     private void inicializaCampos() {
+        //pegando itens pelo id que estão no xml
         campoNome = findViewById(R.id.editText_nome);
         campoAltura = findViewById(R.id.editText_altura);
         campoNascimento = findViewById(R.id.editText_nascimento);
 
-        //configura o layout com imports de outra biblioteca
+        //configura a formatação com imports de outra biblioteca
         SimpleMaskFormatter smfAltura = new SimpleMaskFormatter("N,NN");
         MaskTextWatcher mtwAltura = new MaskTextWatcher(campoAltura, smfAltura);
         campoAltura.addTextChangedListener(mtwAltura);
 
-        //configura o layout com imports de outra biblioteca
+        //configura a formatação layout com imports de outra biblioteca
         SimpleMaskFormatter smfNascimento = new SimpleMaskFormatter("NN/NN/NNNN");
         MaskTextWatcher mtwNascimento = new MaskTextWatcher(campoNascimento, smfNascimento);
         campoNascimento.addTextChangedListener(mtwNascimento);
