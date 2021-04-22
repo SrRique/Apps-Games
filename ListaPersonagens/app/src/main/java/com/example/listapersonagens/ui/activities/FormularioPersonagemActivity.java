@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +15,8 @@ import android.widget.Toast;
 import com.example.listapersonagens.R;
 import com.example.listapersonagens.dao.PersonagemDAO;
 import com.example.listapersonagens.model.Personagem;
+import com.github.rtoshiro.util.format.SimpleMaskFormatter;
+import com.github.rtoshiro.util.format.text.MaskTextWatcher;
 
 import java.io.Serializable;
 
@@ -31,8 +35,25 @@ public class FormularioPersonagemActivity extends AppCompatActivity {
     private final PersonagemDAO dao = new PersonagemDAO();
     private Personagem personagem;
 
+    //abre o menu de scrollview
     @Override
-    //na inicialização faz o processo de
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_formulario_personagem_menu_salvar, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    //finaliza o menu scrollview ao clicar no botão
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == R.id.activity_formulario_personagem_menu_salvar){
+            FinalizaFormulario();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    //faz o processo de inicialização
     protected void onCreate(@NonNull Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario_personagem);
@@ -46,7 +67,7 @@ public class FormularioPersonagemActivity extends AppCompatActivity {
         Intent dados = getIntent();
         if (dados.hasExtra(CHAVE_PERSONAGEM)) {
             setTitle(TITULO_APPBAR_EDITA_PERSONAGEM);
-            personagem = (Personagem) dados.getSerializableExtra("personagem");
+            personagem = (Personagem) dados.getSerializableExtra(CHAVE_PERSONAGEM);
             preencheCampos();
         } else {
             setTitle(TITULO_APPBAR_NOVO_PERSONAGEM);
@@ -84,11 +105,21 @@ public class FormularioPersonagemActivity extends AppCompatActivity {
         finish();
     }
 
-    //Pegando os ids do editText
+    //Pegando os ids do editText e inicializando, configura o layout
     private void inicializaCampos() {
         campoNome = findViewById(R.id.editText_nome);
         campoAltura = findViewById(R.id.editText_altura);
         campoNascimento = findViewById(R.id.editText_nascimento);
+
+        //configura o layout com imports de outra biblioteca
+        SimpleMaskFormatter smfAltura = new SimpleMaskFormatter("N,NN");
+        MaskTextWatcher mtwAltura = new MaskTextWatcher(campoAltura, smfAltura);
+        campoAltura.addTextChangedListener(mtwAltura);
+
+        //configura o layout com imports de outra biblioteca
+        SimpleMaskFormatter smfNascimento = new SimpleMaskFormatter("NN/NN/NNNN");
+        MaskTextWatcher mtwNascimento = new MaskTextWatcher(campoNascimento, smfNascimento);
+        campoNascimento.addTextChangedListener(mtwNascimento);
     }
 
     //usado para dar conteudo aos campos e transforma em string
